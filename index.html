@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NETPLUS-38DA5BDF99189A7D - Hệ Thống Cấp Key</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #0b0f19;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Top Bar & Logo */
+        .header {
+            width: 100%;
+            max-width: 450px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .logo span {
+            color: #00d2ff;
+        }
+        .btn-download {
+            background: #00d2ff;
+            color: #000;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        /* Trạng thái xác thực */
+        .status-badge {
+            background: rgba(0, 230, 118, 0.1);
+            color: #00e676;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            border: 1px solid rgba(0, 230, 118, 0.2);
+        }
+
+        /* Khung chứa nội dung chính */
+        .main-card {
+            background: #111625;
+            width: 100%;
+            max-width: 450px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 24px;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+        .card-title-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .key-icon-box {
+            background: rgba(0, 210, 255, 0.1);
+            color: #00d2ff;
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        .card-title h3 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        .card-title p {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 2px;
+        }
+        .time-badge {
+            background: rgba(255, 152, 0, 0.1);
+            color: #ff9800;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Ô chứa mã Key */
+        .key-display-box {
+            background: #080b12;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 14px;
+            padding: 16px;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        .key-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #4b5563;
+            margin-bottom: 8px;
+        }
+        .key-string {
+            font-size: 16px;
+            font-weight: 700;
+            color: #00d2ff;
+            letter-spacing: 0.5px;
+            word-break: break-all;
+        }
+
+        /* Các nút bấm */
+        .btn-action {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: 0.2s;
+            border: none;
+        }
+        .btn-copy {
+            background: #00d2ff;
+            color: #000;
+            margin-bottom: 12px;
+        }
+        .btn-copy:active { background: #00b4db; }
+        
+        .btn-renew {
+            background: #1a2236;
+            color: #9ca3af;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .btn-renew:hover { color: #fff; }
+
+        /* Khối lưới thông tin phụ (3 cột) */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 24px 0;
+        }
+        .info-item {
+            background: #171e30;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 11px;
+        }
+        .info-item i {
+            color: #00d2ff;
+            margin-bottom: 8px;
+            display: block;
+            font-size: 14px;
+        }
+        .info-item.status i { color: #00e676; }
+        .info-item.mode i { color: #9061f9; }
+        
+        .info-item span {
+            color: #6b7280;
+            display: block;
+            margin-bottom: 2px;
+        }
+        .info-item p {
+            font-weight: 600;
+            color: #dfe2e6;
+        }
+
+        /* Khung Hướng dẫn sử dụng */
+        .guide-box {
+            background: rgba(255, 152, 0, 0.03);
+            border: 1px solid rgba(255, 152, 0, 0.1);
+            border-radius: 16px;
+            padding: 16px;
+        }
+        .guide-title {
+            color: #ff9800;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .guide-step {
+            display: flex;
+            gap: 10px;
+            font-size: 12px;
+            color: #9ca3af;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        .guide-step:last-child { margin-bottom: 0; }
+        .step-num {
+            background: rgba(255, 152, 0, 0.1);
+            color: #ff9800;
+            min-width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 11px;
+        }
+        .guide-step span.highlight {
+            color: #00d2ff;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="logo">NETPLUS<span>Plus</span></div>
+        <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Tải Về Ngay</a>
+    </div>
+
+    <div class="status-badge">
+        <i class="fa-solid fa-circle-check"></i> Xác thực thành công • Key hợp lệ
+    </div>
+
+    <div class="main-card">
+        <div class="card-header">
+            <div class="card-title-group">
+                <div class="key-icon-box"><i class="fa-solid fa-key"></i></div>
+                <div class="card-title">
+                    <h3>Key Kích Hoạt</h3>
+                    <p>NetPlus Premium - Bản Quyền Cá Nhân</p>
+                </div>
+            </div>
+            <div class="time-badge"><i class="fa-solid fa-clock"></i> 24h</div>
+        </div>
+
+        <div class="key-display-box">
+            <div class="key-label">Mã Kích Hoạt</div>
+            <div class="key-string" id="keyText">NETPLUS-38DA5BDF99189A7D</div>
+        </div>
+
+        <button class="btn-action btn-copy" onclick="copyKey()">
+            <i class="fa-regular fa-copy"></i> Sao Chép Key
+        </button>
+        <button class="btn-action btn-renew" onclick="location.reload()">
+            <i class="fa-solid fa-arrow-rotate-right"></i> Lấy Key Mới
+        </button>
+
+        <div class="info-grid">
+            <div class="info-item">
+                <i class="fa-brand fa-android"></i>
+                <span>Nền tảng</span>
+                <p>Android 7+</p>
+            </div>
+            <div class="info-item status">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>Trạng thái</span>
+                <p>Hợp lệ</p>
+            </div>
+            <div class="info-item mode">
+                <i class="fa-solid fa-sliders"></i>
+                <span>Chế độ</span>
+                <p>7 Modes</p>
+            </div>
+        </div>
+
+        <div class="guide-box">
+            <div class="guide-title"><i class="fa-solid fa-circle-info"></i> HƯỚNG DẪN SỬ DỤNG KEY</div>
+            <div class="guide-step">
+                <div class="step-num">01</div>
+                <div>Mở ứng dụng <span class="highlight">Itachi Ping</span> trên thiết bị Android.</div>
+            </div>
+            <div class="guide-step">
+                <div class="step-num">02</div>
+                <div>Nhấn vào <span class="highlight">Nhập Key</span> hoặc biểu tượng <b>khóa</b> ở màn hình chính.</div>
+            </div>
+            <div class="guide-step">
+                <div class="step-num">03</div>
+                <div>Dán key vừa sao chép, nhấn <span class="highlight">Xác Nhận</span> để mở khóa toàn bộ tính năng.</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyKey() {
+            const keyText = document.getElementById('keyText').innerText;
+            navigator.clipboard.writeText(keyText).then(() => {
+                alert('Đã sao chép mã Key vào bộ nhớ tạm!');
+            }).catch(err => {
+                console.error('Lỗi khi copy: ', err);
+            });
+        }
+
+        // Logic tự động đọc tham số HWID từ link web (Ví dụ: ?hwid=123XYZ)
+        const urlParams = new URLSearchParams(window.location.search);
+        const hwid = urlParams.get('hwid');
+        if(hwid) {
+            console.log("Thiết bị yêu cầu có mã HWID là:", hwid);
+            // Ở đây bạn có thể viết thêm code tự động gọi API lấy key từ backend dựa trên HWID này
+        }
+    </script>
+</body>
+</html>
