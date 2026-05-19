@@ -2211,9 +2211,9 @@ L_1_[16] = (loadstring(game:HttpGet(L_1_[2]({
 	"s/main/UiRedzHub.lua"
 }))))()
 L_1_[38] = L_1_[16]:MakeWindow({
-	["Title"] = "Falre X hub";
+	["Title"] = "Gravity X hub";
 	["SubTitle"] = "by Phoenix • BLOCK FRUIT",
-	["SaveFolder"] = "redz library V5.json"
+	["SaveFolder"] = "gravity hub library V5.json"
 })
 L_1_[87] = Instance["new"]("ScreenGui")
 L_1_[87]["Name"] = "ControlGUI"
@@ -2222,7 +2222,7 @@ L_1_[41] = Instance["new"]("ImageButton")
 L_1_[41]["Size"] = UDim2["new"](0, 50, 0, 50)
 L_1_[41]["Position"] = UDim2["new"](.15, 0, .15, 0)
 L_1_[41]["Image"] = L_1_[2]({
-	"rbxassetid://79169432288417",
+	"rbxassetid://134807657861147",
 	"7844710"
 })
 L_1_[41][L_1_[2]({
